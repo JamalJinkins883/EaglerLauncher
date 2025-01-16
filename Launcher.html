@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EaglerCraft Launcher</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('https://assets.onecompiler.app/435t5pdtj/435urc4sq/download.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .launcher {
+      display: flex;
+      flex: 1;
+      background-color: rgba(68, 68, 68, 0.8);
+      border-radius: 15px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+      margin: 20px;
+    }
+    .sidebar {
+      width: 200px;
+      background-color: #444444;
+      padding-top: 20px;
+      border-radius: 15px 0 0 15px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+    }
+    .sidebar .tab {
+      padding: 15px;
+      cursor: pointer;
+      font-size: 16px;
+      text-align: center;
+      color: white;
+      background-color: #555555;
+      transition: background-color 0.3s ease;
+    }
+    .sidebar .tab:hover {
+      background-color: #666666;
+    }
+    .sidebar .tab.active {
+      background-color: #777777;
+    }
+    .sidebar img {
+      width: 150px; /* Smaller EaglerCraft logo */
+      height: auto;
+      margin: 20px auto;
+    }
+    .content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      border-radius: 0 15px 15px 0;
+      display: flex;
+      flex-direction: row;
+    }
+    .left-content {
+      width: 70%;
+    }
+    .right-content {
+      width: 30%;
+      padding-left: 20px;
+      border-left: 2px solid #444;
+    }
+    .button {
+      display: inline-block;
+      margin: 10px 0;
+      padding: 12px 25px;
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(145deg, #666666, #555555);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5), inset 0 -2px 5px rgba(0, 0, 0, 0.4);
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+    .button:hover {
+      background: linear-gradient(145deg, #777777, #666666);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6), inset 0 -3px 7px rgba(0, 0, 0, 0.5);
+      transform: scale(1.05);
+    }
+    .button:active {
+      box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.6);
+      transform: scale(0.98);
+    }
+    .dropdown {
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #555555;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: background-color 0.3s ease;
+    }
+    .dropdown:hover {
+      background-color: #666666;
+    }
+    .dropdown option {
+      background-color: #555555;
+      color: white;
+    }
+    .toggle-container {
+      margin-top: 20px;
+      font-size: 16px;
+    }
+    #beta-releases {
+      margin-right: 10px;
+      transform: scale(1.2);
+    }
+    #beta-status {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    .minecraft-title {
+      max-width: 600px;
+      height: auto;
+      margin-bottom: 50px;
+    }
+    .sidebar img {
+      max-width:700px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+    
+    .extra-details {
+  margin-top: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.extra-details h3 {
+  margin-bottom: 10px;
+  color: #ffcc00; /* Highlighted heading color */
+}
+
+.extra-details ul {
+  list-style: disc;
+  margin-left: 20px;
+}
+
+.extra-details ul li {
+  margin: 5px 0;
+}
+
+.extra-details p {
+  margin-top: 10px;
+}
+
+.discord-section {
+  margin-top: 30px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.discord-section h3 {
+  margin-bottom: 10px;
+  color: #7289da; /* Discord branding color */
+}
+
+.discord-section p {
+  margin-bottom: 20px;
+  color: white;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.discord-button,
+.contact-button,
+.suggestions-button {
+  background-color: #7289da;
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.discord-button:hover,
+.contact-button:hover,
+.suggestions-button:hover {
+  background-color: #5a6fb9;
+  transform: scale(1.05);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6);
+}
+
+.discord-button:active,
+.contact-button:active,
+.suggestions-button:active {
+  transform: scale(0.98);
+  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+  </style>
+</head>
+<body>
+  <div class="launcher">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <img src="https://assets.onecompiler.app/435t5pdtj/435urc4sq/minecraft_title%20(2).png" alt="EaglerCraft Logo">
+      <div class="tab active" onclick="showTab('javascript')">JavaScript Version</div>
+      <div class="tab" onclick="showTab('wasm')">WASM Version</div>
+      <div class="tab" onclick="showTab('skins')">Skins</div>
+      <div class="tab" onclick="showTab('profile')">Profile</div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content" id="content">
+      <!-- Left Content (Main) -->
+      <div class="left-content">
+        <!-- JavaScript Version Content -->
+        <div id="javascript" class="tab-content">
+          <img src="https://assets.onecompiler.app/435t5pdtj/435sa2pa8/minecraft_title.png" alt="Minecraft Title" class="minecraft-title">
+          <h2>JavaScript Version</h2>
+          <p>The JavaScript version of EaglerCraft offers great compatibility with most web browsers, providing easy access to Minecraft directly through your browser without needing additional software. Customize your gameplay experience with powerful in-game mods and skins!</p>
+          <div class="version-selector">
+            <label for="java-version">Choose Java Version:</label>
+            <select id="java-version" class="dropdown">
+              <option value="1.5.2">1.5.2</option>
+              <option value="1.8.8" selected>1.8.8</option>
+              <option value="1.9.4">1.9.4</option>
+              <option value="1.11.2">1.11.2</option>
+              <option value="1.12.2">1.12.2</option>
+              <option value="1.14">1.14</option>
+              <option value="1.20.1">1.20.1</option>
+            </select>
+          </div>
+          <button class="button" onclick="launchJavaScriptVersion()">Launch JavaScript Version</button>
+        </div>
+
+        <!-- WASM Version Content -->
+        <div id="wasm" class="tab-content" style="display: none;">
+          <img src="https://assets.onecompiler.app/435t5pdtj/435sa2pa8/minecraft_title%20(1).png" alt="Minecraft Title" class="minecraft-title">
+          <h2>WASM Version</h2>
+          <p>The WASM version of EaglerCraft utilizes WebAssembly for faster performance. Ideal for users seeking a more optimized gaming experience with minimal loading times, it provides high-speed gameplay with smoother performance on compatible browsers.</p>
+          <div class="version-selector">
+            <label for="wasm-version">Choose WASM Version:</label>
+            <select id="wasm-version" class="dropdown">
+              <option value="1.8.8">1.8.8</option>
+              <option value="1.20.1">1.20.1</option>
+            </select>
+          </div>
+          <button class="button" onclick="launchWasmVersion()">Launch WASM Version</button>
+        </div>
+        <!-- Details -->
+        <div class="extra-details">
+  <h3>Why Choose the JavaScript Version?</h3>
+  <ul>
+    <li><strong>No Installation Needed:</strong> Play directly in your browser without downloading or setting up additional software.</li>
+    <li><strong>Seamless Multiplayer:</strong> Join servers and connect with friends effortlessly.</li>
+    <li><strong>Customizable Experience:</strong> Enjoy a plethora of community-created mods and add-ons to personalize your gameplay.</li>
+    <li><strong>Regular Updates:</strong> Stay updated with new features and improvements released regularly by the EaglerCraft team.</li>
+    <li><strong>Active Community:</strong> Be a part of a thriving community of players and creators sharing their adventures and creations.</li>
+  </ul>
+  <p>Whether you're a seasoned player or new to Minecraft, the JavaScript version offers an accessible and engaging way to enjoy the game.</p>
+</div>
+<!-- Links -->
+<div class="discord-section">
+  <h3>Join Our Community and Share Your Ideas!</h3>
+  <p>Connect with other players, share your creations, and stay updated with the latest news from the EaglerCraft team.</p>
+  <div class="button-container">
+    <button class="button discord-button" onclick="openDiscord()">Join Discord</button>
+    <button class="button contact-button" onclick="contactOutlook()">Contact Us</button>
+    <button class="button suggestions-button" onclick="openSuggestions()">Suggestions</button>
+  </div>
+</div>
+
+        <!-- Skins Content -->
+        <div id="skins" class="tab-content" style="display: none;">
+          <h2>Skins</h2>
+          <p>Customize your avatar with skins! Upload your own or choose from a variety of pre-made skins available in the community gallery.</p>
+        </div>
+
+        <!-- Profile Content -->
+        <div id="profile" class="tab-content" style="display: none;">
+          <h2>Profile</h2>
+          <p>Manage your profile settings, including name, skins, and preferences. Keep your profile up-to-date for the best experience.</p>
+        </div>
+      </div>
+
+      <!-- Right Content -->
+      <div class="right-content">
+        <div id="extra-info">
+          <!-- JavaScript Right Description -->
+          <div id="js-info" style="display: block;">
+            <h3>JavaScript Version Features</h3>
+            <ul>
+              <li><strong>Full Browser Compatibility:</strong> Works across all major browsers with no installation required.</li>
+              <li><strong>Customization:</strong> Customize your gaming experience with a wide range of mods and skins.</li>
+              <li><strong>Access to Beta Versions:</strong> Unlock and play early beta releases directly from the launcher.</li>
+            </ul>
+            <div class="toggle-container">
+              <button class="button" onclick="toggleBetaFeatures()">Toggle Beta Features</button>
+              <p id="beta-status">Beta features are currently hidden.</p>
+            </div>
+          </div>
+          <!-- Wasm Right Description -->
+          <div id="wasm-info" style="display: block;">
+            <h3>Wasm Version Features</h3>
+            <ul>
+              <li><strong>High-Performance Graphics:</strong> Enjoy smoother visuals and optimized rendering powered by WebAssembly.</li>
+              <li><strong>Reduced Latency:</strong> Experience low-latency gameplay with faster load times and quicker response rates.</li>
+              <li><strong>Cross-Browser Compatibility:</strong> Seamlessly runs on modern browsers that support WASM, maximizing accessibility.</li>
+              <li><strong>Future-Proof Technology:</strong> Leverages cutting-edge browser technologies for the best gaming experience.</li>
+            </ul>
+            <div class="toggle-container">
+              <p id="beta-status">Beta features are currently hidden.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+function showTab(tab) {
+  // Hide all tab contents and remove active class from all tabs
+  document.querySelectorAll('.tab-content').forEach(content => content.style.display = 'none');
+  document.querySelectorAll('.sidebar .tab').forEach(tabElement => tabElement.classList.remove('active'));
+
+  // Show the selected tab's content and mark it as active
+  document.getElementById(tab).style.display = 'block';
+  document.querySelector(`.sidebar .tab[onclick="showTab('${tab}')"]`).classList.add('active');
+
+  // Manage right description visibility
+  const rightDescriptions = {
+    javascript: 'js-info',
+    wasm: 'wasm-info',
+  };
+
+  // Hide all right descriptions
+  document.querySelectorAll('#extra-info > div').forEach(description => (description.style.display = 'none'));
+
+  if (rightDescriptions[tab]) {
+    document.getElementById(rightDescriptions[tab]).style.display = 'block';
+  }
+}
+
+// Beta version toggle state
+let betaEnabled = false;
+
+// Function to toggle beta features
+function toggleBetaFeatures() {
+  const betaStatus = document.getElementById('beta-status');
+  const javaVersionDropdown = document.getElementById('java-version');
+
+  if (!betaEnabled) {
+    // Add beta versions to dropdown
+    const betaVersions = [
+      { value: 'alpha-1.2.6', text: 'Alpha 1.2.6' },
+      { value: 'beta-1.3', text: 'Beta 1.3' },
+      { value: 'beta-1.7.3', text: 'Beta 1.7.3' }
+    ];
+    betaVersions.forEach(version => {
+      const option = document.createElement('option');
+      option.value = version.value;
+      option.textContent = version.text;
+      option.classList.add('beta-option'); // Mark for easy removal
+      javaVersionDropdown.appendChild(option);
+    });
+    betaStatus.textContent = 'Beta features are now visible!';
+  } else {
+    // Remove beta versions from dropdown
+    const betaOptions = document.querySelectorAll('.beta-option');
+    betaOptions.forEach(option => option.remove());
+    betaStatus.textContent = 'Beta features are currently hidden.';
+  }
+
+  betaEnabled = !betaEnabled;
+}
+
+// Launch JavaScript version
+    function launchJavaScriptVersion() {
+      const selectedVersion = document.getElementById("java-version").value;
+      let versionLink = '';
+
+      switch (selectedVersion) {
+        case '1.5.2':
+          versionLink = 'https://jamaljinkins883.github.io/EaglerLauncher/Java Versions/eag1.5.2.html';
+          break;
+        case '1.8.8':
+          versionLink = 'https://jamaljinkins883.github.io/EaglerLauncher/Java Versions/eag1.8.8.html';
+          break;
+        case '1.9.4':
+          versionLink = 'https://jamaljinkins883.github.io/EaglerLauncher/Extras/eag1.9.4.html';
+          break;
+        case '1.11.2':
+          versionLink = 'https://jamaljinkins883.github.io/EaglerLauncher/Extras/eag1.11.2.html';
+          break;
+        case '1.12.2':
+          versionLink = 'https://jamaljinkins883.github.io/Eagtek-1.12.2/Eaglercraft-1.12-2.html';
+          break;
+        case '1.14':
+          versionLink = 'https://jamaljinkins883.github.io/EaglerLauncher/Extras/eag1.14.html';
+          break;
+        case '1.20.1':
+          versionLink = 'https://eaglymc.online/web-javascript/';
+          break;
+          case 'alpha-1.2.6':
+          versionLink = 'https://jamaljinkins883.github.io/EaglerLauncher/Java Versions/eaga1.2.6.html';
+          break;
+        case 'beta-1.3':
+          versionLink = 'https://jamaljinkins883.github.io/EaglerLauncher/Java Versions/eagb1.3.html';
+          break;
+        case 'beta-1.7.3':
+          versionLink = 'https://jamaljinkins883.github.io/EaglerLauncher/Java Versions/eagb1.7.3.html';
+          break;
+      }
+
+      window.open(versionLink, 'Running EaglerCraft', 'width=800,height=600,resizable=yes,scrollbars=yes');
+    }
+
+// Launch WASM version
+    function launchWasmVersion() {
+      const selectedVersion = document.getElementById("wasm-version").value;
+      let versionLink = '';
+
+      switch (selectedVersion) {
+        case '1.8.8':
+          versionLink = 'https://eaglercraft.com/mc/1.8.8-wasm/';
+          break;
+        case '1.20.1':
+          versionLink = 'https://eaglymc.online/web-wasm/';
+          break;
+      }
+
+      window.open(versionLink, 'Running EaglerCraft', 'width=800,height=600,resizable=yes,scrollbars=yes');
+    }
+    
+// Community button actions
+function openDiscord() {
+window.open('https://discord.com/channels/@me/1255886003990827172', 'Discord', 'width=800,height=600,resizable=yes,scrollbars=yes');
+}
+
+function contactOutlook() {
+window.open('mailto:realjamaljinkins@outlook.com', 'Contact');  window.open('https://forms.gle/NL4dwZMyyQh1MCdG7');
+}
+
+function openSuggestions() {
+  window.open('https://forms.gle/NL4dwZMyyQh1MCdG7', 'Suggestions', 'width=800,height=600,resizable=yes,scrollbars=yes');
+}
+
+// Initialize default tab
+document.addEventListener("DOMContentLoaded", () => showTab('javascript'));
+
+  </script>
+</body>
+</html>
