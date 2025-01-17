@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EaglerCraft Launcher</title>
+  
+  <audio id="backgound-music" autoplay loop>
+      <source src="https://jamaljinkins883.github.io/EaglerLauncher/Sound/Minecraft Volume Alpha - 8 - Minecraft.mp3" type="audio/mpeg">
+  </audio>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -225,10 +230,11 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <img src="https://assets.onecompiler.app/435t5pdtj/435urc4sq/minecraft_title%20(2).png" alt="EaglerCraft Logo">
-      <div class="tab active" onclick="showTab('javascript')">JavaScript Version</div>
-      <div class="tab" onclick="showTab('wasm')">WASM Version</div>
-      <div class="tab" onclick="showTab('skins')">Skins</div>
-      <div class="tab" onclick="showTab('profile')">Profile</div>
+      <div class="tab active" onclick="playSound();showTab('javascript')">JavaScript Version</div>
+     <div class="tab" onclick="playSound();showTab('wasm');">WASM</div>
+      <div class="tab" onclick="playSound();showTab('skins')">Skins</div>
+      <div class="tab" onclick="playSound();showTab('profile')">Profile</div>
+      <div class="tab" onclick="playSound();showTab('settings')">Settings</div>
     </div>
 
     <!-- Content Area -->
@@ -252,7 +258,7 @@
               <option value="1.20.1">1.20.1</option>
             </select>
           </div>
-          <button class="button" onclick="launchJavaScriptVersion()">Launch JavaScript Version</button>
+          <button class="button" onclick="playSound();launchJavaScriptVersion()">Launch JavaScript Version</button>
         </div>
 
         <!-- WASM Version Content -->
@@ -267,7 +273,7 @@
               <option value="1.20.1">1.20.1</option>
             </select>
           </div>
-          <button class="button" onclick="launchWasmVersion()">Launch WASM Version</button>
+          <button class="button" onclick="playSound();launchWasmVersion()">Launch WASM Version</button>
         </div>
         <!-- Details -->
         <div class="extra-details">
@@ -286,9 +292,9 @@
   <h3>Join Our Community and Share Your Ideas!</h3>
   <p>Connect with other players, share your creations, and stay updated with the latest news from the EaglerCraft team.</p>
   <div class="button-container">
-    <button class="button discord-button" onclick="openDiscord()">Join Discord</button>
-    <button class="button contact-button" onclick="contactOutlook()">Contact Us</button>
-    <button class="button suggestions-button" onclick="openSuggestions()">Suggestions</button>
+    <button class="button discord-button" onclick="playsound2();openDiscord()">Join Discord</button>
+    <button class="button contact-button" onclick="playSound();contactOutlook()">Contact Us</button>
+    <button class="button suggestions-button" onclick="playSound();openSuggestions()">Suggestions</button>
   </div>
 </div>
 
@@ -317,7 +323,7 @@
               <li><strong>Access to Beta Versions:</strong> Unlock and play early beta releases directly from the launcher.</li>
             </ul>
             <div class="toggle-container">
-              <button class="button" onclick="toggleBetaFeatures()">Toggle Beta Features</button>
+              <button class="button" onclick="playSound();toggleBetaFeatures(),playSound()">Toggle Beta Features</button>
               <p id="beta-status">Beta features are currently hidden.</p>
             </div>
           </div>
@@ -470,6 +476,18 @@ function openSuggestions() {
 // Initialize default tab
 document.addEventListener("DOMContentLoaded", () => showTab('javascript'));
 
+    // Function to play sound
+    function playSound() {
+      const sound = new Audio('https://jamaljinkins883.github.io/EaglerLauncher/Sound/ButtonPlate Click (Minecraft Sound) - Sound Effect for editing.mp3'); // Replace with your sound URL
+      sound.play();
+    }
+    
+    // Function to play sound 2
+    function playsound2() {
+      const sound = new Audio('https://jamaljinkins883.github.io/EaglerLauncher/Sound/Discord%20notification%20-%20sound%20effect.mp3')
+      sound.play();
+     }
+     
   </script>
 </body>
 </html>
